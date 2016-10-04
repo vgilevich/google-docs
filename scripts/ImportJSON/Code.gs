@@ -1,7 +1,7 @@
 /*====================================================================================================================================*
   ImportJSON by Trevor Lohrbeer (@FastFedora)
   ====================================================================================================================================
-  Version:      1.3
+  Version:      1.3.1
   Project Page: http://blog.fastfedora.com/projects/import-json
   Copyright:    (c) 2012-2013 by Trevor Lohrbeer
   License:      GNU General Public License, version 3 (GPL-3.0)
@@ -23,6 +23,7 @@
   ------------------------------------------------------------------------------------------------------------------------------------
   Changelog:
 
+  1.3.1  Fix issue with missed first row from imported JSON array.
   1.3    Added ImportJSONBasicAuthentication method to access urls protected by Basic Auth
   1.2.1  Fixed a bug with how nested arrays are handled. The rowIndex counter wasn't incrementing properly when parsing.
   1.2.0  Added ImportJSONViaPost and support for fetchOptions to ImportJSONAdvanced
@@ -285,7 +286,7 @@ function parseData_(headers, data, path, state, value, query, options, includeFu
       if (parseData_(headers, data, path, state, value[i], query, options, includeFunc)) {
         dataInserted = true;
 
-        if (i > 0 && data[state.rowIndex]) {
+        if (data[state.rowIndex]) {
           state.rowIndex++;
         }
       }
